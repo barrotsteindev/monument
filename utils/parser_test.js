@@ -48,6 +48,18 @@ describe('Parser Tests', () => {
         });
     });
 
+    it('should return an error for incorrect multipart/form-data submission', (done) => {
+        const form = new FormData();
+        form.append('cont', 'no title');
+        form.headers = form.getHeaders();
+
+        parser({ req: form}, (body, err) => {
+            assert.isNull(body);
+            console.log('error: ' + err);
+            assert.instanceOf(err, Error);
+        });
+    });
+
     it('should parse out a application/x-www-form-urlencoded submission', (done) => {
         stream.push(urlBody);
         stream.push(null);
