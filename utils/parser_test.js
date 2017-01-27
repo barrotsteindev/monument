@@ -48,6 +48,22 @@ describe('Parser Tests', () => {
         });
     });
 
+    it('should parse out a form string', (done) => {
+        const form = new FormData()
+            , validString = fs.readFileSync(path.join(process.cwd(), '/test_stubs/formDataBody.txt'), 'utf-8');
+
+        form.append(validString);
+
+        parser({ req: validString }, (body, err) => {
+            assert.isNull(err);
+            assert.isObject(body);
+            console.log('body: ' + JSON.stringify(body));
+            assert.strictEqual(body.cont, 'some random content');
+            assert.strictEqual(body.pass, 'some random pass');
+            done();
+        });
+    });
+
     it('should return an error for wrong multipart/form-data submission', (done) => {
         const fakeForm = { headers: { 'content-type': 'multipart/form-data;' } };
 
