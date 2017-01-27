@@ -58,8 +58,8 @@ describe('Parser Tests', () => {
         form.headers = form.getHeaders();
 
         parser({ req: form }, (body, err) => {
-            assert.isNull(body);
             assert.instanceOf(err, Error);
+            assert.isNull(body);
             done();
         });
     });
