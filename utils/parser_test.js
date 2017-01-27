@@ -49,12 +49,7 @@ describe('Parser Tests', () => {
     });
 
     it('should return an error for wrong multipart/form-data submission', (done) => {
-        const fakeForm = {
-                           headers:
-                             {
-                               'content-type': 'multipart/form-data;'
-                             }
-                         };
+        const fakeForm = { headers: { 'content-type': 'multipart/form-data;' } };
 
         parser({ req: fakeForm }, (body, err) => {
             assert.instanceOf(err, Error);
